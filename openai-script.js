@@ -1,8 +1,8 @@
 
 const form = document.getElementById('soundtrack-form');
-// export { form };
+export { form };
 const container = document.getElementById('soundtrack-container');
-// export { container };
+export { container };
 
 export function getSoundtrack(description) {
 

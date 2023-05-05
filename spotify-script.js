@@ -2,9 +2,9 @@
 
 // Save the soundtrack response from Open AI to a variable.
 
-// import { getSoundtrack } from './openai-script.js';
-// import { form } from './openai-script.js';
-// import { container } from './openai-script.js';
+import { getSoundtrack } from './openai-script.js';
+import { form } from './openai-script.js';
+import { container } from './openai-script.js';
 
 form.addEventListener('submit', event => {
  event.preventDefault(); 
