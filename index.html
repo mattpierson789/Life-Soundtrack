@@ -7,10 +7,25 @@
     <title>Document</title>
 
     <script type="application/javascript" src="dist/main.js" defer></script>
-
+    <link rel="stylesheet" href="dist/main.css">
 
 </head>
+
 <body>
+
+
+    <h1>Life Soundtrack</h1>
+    <form id="soundtrack-form">
+      <label for="description">What do you want to listen to?</label>
+      <input type="text" id="description" name="description" required>
+      <button type="submit">Create</button>
+    </form>
+    <div id="soundtrack-container"></div>
+
+    <script type="module" src="openai-script.js"></script>
+    <script type="module" src="spotify-script.js"></script>
+
+  
     
 </body>
 </html>
