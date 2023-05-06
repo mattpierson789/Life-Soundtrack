@@ -19,6 +19,7 @@ export function getSoundtrack(description) {
     if (data.choices && data.choices.length > 0) {
       const soundtrack = data.choices[0].text;
       soundtrackResponse.push(soundtrack)
+      console.log(data)
       return soundtrack;
       
     } else {
@@ -34,6 +35,8 @@ form.addEventListener('submit', event => {
   getSoundtrack(description)
     .then(soundtrack => {
       container.innerHTML = `<p>${soundtrack}</p>`;
+      console.log(container)
+      
     })
     .catch(error => {
       console.error(error);

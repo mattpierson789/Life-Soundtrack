@@ -1,0 +1,52 @@
+#soundtrack-container {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 800px;
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: auto;
+    padding: 10px;
+  }
+  
+  #soundtrack-container img {
+    width: 160px;
+    height: 160px;
+    margin: 0px;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #soundtrack-container img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  .soundtrack-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .soundtrack-item img {
+    width: 200px;
+    height: 200px;
+  }
+  
+  #soundtrack-container p {
+    text-align: center;
+    width: 200px;
+    margin: 0 10px;
+    font-size: 16px;
+    line-height: 1.2;
+
+  }
+
+  

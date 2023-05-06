@@ -16,12 +16,16 @@
 
     <h1>Life Soundtrack</h1>
     <form id="soundtrack-form">
-      <label for="description">What do you want to listen to?</label>
-      <input type="text" id="description" name="description" required>
+      <label for="description"></label>
+      <input type="text" id="description" name="description" placeholder="Generate a soundtrack...">
       <button type="submit">Create</button>
     </form>
-    <div id="soundtrack-container"></div>
 
+    <div id="soundtrack-container">
+   
+    </div>
+    
+  
     <script type="module" src="openai-script.js"></script>
     <script type="module" src="spotify-script.js"></script>
     <script type="module" src="spotify-access-token.js"></script>

@@ -1,6 +1,6 @@
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
-const accessToken = 'BQDk_MEyXlyVaMDneWPWahlrzh8yvzLYGwQfEKIbVgPs6dfeDnKiGppsuXdikrsfUVQQrE0dXict3hkme0w0kHBWTiR3pWcWMAuHd2Eo9OzeIOoZZrOP';
+const accessToken = 'BQAIS1gTljMWghZxvDnRi4LJwVRruynC1Fl2mZTSU1HL9FQO478wsk3j_6inW8PrYb4ylRiJuhGlSnM1P8Sbi3cs-8sQsXe8OIGQNp5NMOj3JZykv6Ju';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -10,6 +10,7 @@ form.addEventListener('submit', event => {
   event.preventDefault();
   console.log('Form submitted!');
   console.log(container);
+  container.style.display = 'flex';
   const description = document.getElementById('description').value;
   console.log(description);
 
@@ -31,16 +32,22 @@ form.addEventListener('submit', event => {
           .then(data => {
             if (data.tracks.items.length > 0) {
               let html = '';
+              const displayedAlbums = [];
 
               // Loop through all available tracks and display their album art
               data.tracks.items.forEach((track) => {
                 const album = track.album.name;
+                if (displayedAlbums.includes(album)) {
+                  return; // skip this album if it has already been displayed
+                }
+                displayedAlbums.push(album);
                 const imageUrl = track.album.images[0].url;
 
                 // Create HTML to display metadata
                 html += `
-                  <p>${track.name} by ${track.artists[0].name} from ${album}</p>
+                
                   <img src="${imageUrl}" alt="${album} cover">
+                  <p>${track.name}</p>
                 `;
 
                 console.log(`Got soundtrack: ${track.name}`);
