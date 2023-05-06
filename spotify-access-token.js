@@ -1,6 +1,6 @@
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
-const accessToken = 'BQAIS1gTljMWghZxvDnRi4LJwVRruynC1Fl2mZTSU1HL9FQO478wsk3j_6inW8PrYb4ylRiJuhGlSnM1P8Sbi3cs-8sQsXe8OIGQNp5NMOj3JZykv6Ju';
+const accessToken = 'BQBu010Mw_qJ3f_VSvVWdgLYK2fF9bnSst2nFR5p8RNYJU5tIgTJCCO064DxvzpB_MRmBGOCAuNMQaI6pGx_6S4Mk6RUGGBv15-ld-YB4SkQuEyTlnGm';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -26,7 +26,7 @@ form.addEventListener('submit', event => {
         const soundtrack = data.choices[0].text;
 
         // Get metadata from Spotify
-        const spotifyApiUrl = `https://api.spotify.com/v1/search?q=${soundtrack}&type=track&limit=1`;
+        const spotifyApiUrl = `https://api.spotify.com/v1/search?q=${soundtrack}&type=track&limit=10`;
         return fetch(spotifyApiUrl, { headers })
           .then(response => response.json())
           .then(data => {
@@ -45,9 +45,10 @@ form.addEventListener('submit', event => {
 
                 // Create HTML to display metadata
                 html += `
-                
-                  <img src="${imageUrl}" alt="${album} cover">
-                  <p>${track.name}</p>
+                  <div class="tile">
+                    <img src="${imageUrl}" alt="${album} cover">
+                    <p class="caption">${track.name}</p>
+                  </div>
                 `;
 
                 console.log(`Got soundtrack: ${track.name}`);
