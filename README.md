@@ -40,11 +40,17 @@ Technologies, Libraries, APIs
 Implementation Timeline
 
 Thursday: Impelement the initial Open AI and Spotify API calls to get the list of the soundtrack and the song metadata.
-Friday: Set-up proxy server.  Implement Homepage stlying V1 and Soundtrack View V1 in order to visualize the albums that are being returned from the Spotify API call 
+
+Friday: Set-up proxy server.  Implement Homepage stlying V1 and Soundtrack View V1 in order to visualize the albums that are being returned from the Spotify API call
+
 Weekend: Finish up the first implementation of the Homepage and the Soundtrack view.  Work on the ability to add additional user input to the additional return by selecting tiles.  Add styling to homepage and ability to sample songs.
+
 Monday: Implement a call to the Spotify recoemmdations API in order to take in the user input to iterate based on user input.  Drag and Drop tiles around the soundstrack view 
+
 Tuesday: Bug fixes and retuning initial implementation
-Wednesday: Styling and final deetails
+
+Wednesday: Styling and final details
+
 Thursday Morning: Presentation and final bug fixes 
 
 
