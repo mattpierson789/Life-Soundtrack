@@ -1,5 +1,4 @@
 #soundtrack-container {
-    display: none;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
@@ -8,9 +7,12 @@
     margin: 0 auto;
     margin-top: 20px;
     border-radius: 10px;
-    overflow: auto;
-    padding: 10px;
     background-color: black;
+    overflow: auto;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-top: 20px;
+    z-index: 999;
   }
   
   #soundtrack-container img {
@@ -22,6 +24,7 @@
     border-radius: 5px;
     display: block;
     transition: all 0.3s ease-in-out;
+    
   }
   
   #soundtrack-container img:hover {
@@ -49,5 +52,20 @@
     line-height: 1.2;
 
   }
+
+  .create-soundtrack-btn {
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .create-soundtrack-btn:hover {
+    background-color: blue;
+  }
+  
 
   
