@@ -28,11 +28,14 @@ Song View
 
 
 Technologies, Libraries, APIs
-What technologies, libraries, and APIs will your project use? If you're building a game, you might use native browser technology like the Canvas API, or you might use a library like three.js. If you're doing data visualization, you might use d3 for rendering charts, and an API to fetch data.
 
-If you're still deciding between a few different libraries or APIs, you can list the ones you're considering, and the potential benefits and drawbacks of each.
-
-If your project needs a backend (see below), list that here as well.
+- Javascript 
+- HTML5
+- CSS 
+- Open AI API
+- Spotify API 
+- Band in Town API 
+- Express 
 
 Implementation Timeline
 
