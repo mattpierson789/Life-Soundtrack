@@ -6,7 +6,7 @@ import { getSoundtrack } from './openai-script.js';
 
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
-const accessToken = 'BQBE6gt86jBhIbqZHwbJ3M9EUHRJZrKfer_r3F7oPZ4vulCUnUyrk0m1Sl2CtcoDKuJJQy8Aii4gcy79BkBQf-DJKSSDhizQBYJ1zHblTmFUGGBEmUiI';
+const accessToken = 'BQDIlD8mxLF4sGKrwk9qDsyGZptnaIzaLyEydVTKAernmuMhaLPZahyBqpfQW9MVXSkbzykedY-rB5aTq0vr_N4w8A9x4Bm0Vsp8nRbczbR-nwbMe7VH';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -26,6 +26,7 @@ form.addEventListener('submit', event => {
   const prompt = `Create me a 20 song soundtrack inspired by ${description}`;
   const encodedPrompt = encodeURIComponent(prompt); // encode the prompt variable
   const apiUrl = `http://localhost:5001/?prompt=${encodedPrompt}`;
+  // const url = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}` going to need to do this for all of my local hosts in cient side code.
   console.log(prompt);
   console.log(description);
   console.log(apiUrl);
@@ -100,7 +101,6 @@ const spotifyApiRequests = parsedSongList.map(song => {
   });
 
 
-  
   Promise.all(spotifyApiRequests)
     .then(responses => Promise.all(responses.map(response => response.json())))
     .then(dataArray => {
@@ -200,6 +200,7 @@ const spotifyApiRequests = parsedSongList.map(song => {
 });
 });
 
+export { headers, getSoundtrack, trackDataArray, selectedTracks };
   
 
 
