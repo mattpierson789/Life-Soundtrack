@@ -1,4 +1,4 @@
-import { selectedTracks } from './spotify-access-token.js';
+import { selectedTracks, trackData } from './spotify-access-token.js';
 
 console.log("The code is running!");
 
@@ -76,12 +76,14 @@ function displayRecommendations(recommendations) {
     html += `
     <div class="tile" draggable="true" data-index="${recommendations.indexOf(recommendation)}">
       <img src="${imageUrl}" alt="${album} cover">
-      <p class="caption">${track.name}</p>
+      <p class="caption">${track.name}</p>`;
+    if (previewUrl) {
+      html += `
       <audio controls style="display:none;">
         <source src="${previewUrl}" type="audio/mpeg">
-      </audio>
-    </div>
-    `;
+      </audio>`;
+    }
+    html += `</div>`;
     console.log(`Got recommendation: ${track.name}`);
   });
 

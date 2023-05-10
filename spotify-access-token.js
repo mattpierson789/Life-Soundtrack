@@ -143,7 +143,6 @@ const spotifyApiRequests = parsedSongList.map(song => {
         let isLongClick = false;
         const audio = tile.querySelector('audio');
         const track = trackData[index].track;
-
   
         const LONG_CLICK_DELAY = 250; // in ms
         let longClickTimeout;
@@ -169,6 +168,11 @@ const spotifyApiRequests = parsedSongList.map(song => {
         tile.addEventListener('mousedown', () => {
           longClickTimeout = setTimeout(handleLongClick, LONG_CLICK_DELAY);
         });
+
+        if (!audio) {
+            // If there is no audio element, do not add event listeners
+            return;
+          }
   
         tile.addEventListener('mouseup', () => {
           if (!isLongClick) {
@@ -200,7 +204,7 @@ const spotifyApiRequests = parsedSongList.map(song => {
 });
 });
 
-export { headers, getSoundtrack, trackDataArray, selectedTracks };
+export { headers, getSoundtrack, trackDataArray, selectedTracks, trackData };
   
 
 
