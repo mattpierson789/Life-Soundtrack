@@ -76,52 +76,98 @@ const rawSongList5 = `
 `;
 
 const rawSongList6 = `
-1. "One More Time"
-2. "Aerodynamic"
-3. "Digital Love"
-4. "Harder, Better, Faster, Stronger"
-5. "Crescendolls"
-6. "Nightvision"
-7. "Superheroes"
-8. "High Life"
-9. "Something About Us"
-10. "Voyager"
-11. "Veridis Quo"
-12. "Short Circuit"
-13. "Face to Face"
-14. "Too Long"
+1. Time of My Life- David Cook
+2. Unwritten- Natasha Bedingfield
+3. The Middle- Zedd, Maren Morris, Grey
+4. Dancing on My Own- Calum Scott
+5. I Will Survive- Gloria Gaynor
+6. Eye of the Tiger- Survivor
+7. I Lived- OneRepublic
+8. New York, New York- Frank Sinatra
+9. The Adventures of Rain Dance Maggie- Red Hot Chili Peppers
+10. Somewhere Only We Know- Keane
+11. Home- Phillip Phillips
+12. Welcome to New York- Taylor Swift
+13. We Are Young- Fun., Janelle Monáe
+14. Feel This Moment- Pitbull, Christina Aguilera
+15. The Climb- Miley Cyrus
+16. Roar- Katy Perry
+17. Brave- Sara Bareilles
+18. Unbreakable- Alicia Keys
+19. Beautiful- Christina Aguilera
+20. Stronger (What Doesn't Kill You)- Kelly Clarkson
+`;
+
+const rawSongList7 = `
+1. Time of my Life- David Cook
+2. Unwritten- Natasha Bedingfield
+3. Home- Edward Sharpe and the Magnetic Zeros
+4. The Middle- Jimmy Eat World
+5. Keep On Movin'- Five
+6. The Only Exception- Paramore
+7. I Will Follow You Into the Dark- Death Cab by Cutie
+8. Good Riddance (Time of Your Life)- Green Day
+9. I Will Survive- Gloria Gaynor
+10. One Step at a Time- Jordin Sparks
+11. Brave- Sara Bareilles
+12. Roar- Katy Perry
+13. Firework- Katy Perry
+14. The Climb- Miley Cyrus
+15. Wavin' Flag- K'naan
+16. We Are Young- fun.
+17. Home- Phillip Phillips
+18. Moving On and Getting Over- John Mayer
+19. New York, New York- Frank Sinatra
+20. A Better Place, A Better Time- Streetlight Manifesto
+
 `;
 
 function parseSongList(rawSongList) {
     const lines = rawSongList.trim().split('\n');
-    const songList = lines.map(line => {
-      const match = line.match(/^(\d+)\.\s*"(.+)"\s*(?:by)?\s*(.+)/);
-      if (match) {
-        return {
-          song: match[2],
-          artist: match[3],
-        };
-      }
-      const match2 = line.match(/^\d+\)\s*"(.+)"\s*-\s*(.+)/);
-      if (match2) {
-        return {
-          song: match2[1],
-          artist: match2[2],
-        };
-      }
-    }).filter(Boolean); // filter out the undefined values
+    const songList = lines
+      .map((line) => {
+        const match = line.match(
+          /^(?:\d+[.)]\s*)?(?:"(.+?)"|(.+?))\s*(?:by|-|—)?\s*(.+)$/i
+        ) || line.match(/^\d+\)\s(.*?)-\s(.*)/);
+        if (match) {
+          const song = match[1] || match[2];
+          const artist = match[3] || match[4];
+          return {
+            song: song.trim(),
+            artist: artist.trim(),
+          };
+        }
+      })
+      .filter(Boolean); // filter out the undefined values
     return songList;
   }
-  
 
+// const pattern = /\d+\)\s(.*?)-\s(.*)/g;
+// let match;
+// const result = [];
+
+// while ((match = pattern.exec(text)) !== null) {
+//   const song = match[1].trim();
+//   const artist = match[2].trim();
+//   result.push({ song, artist });
+// }
+
+// console.log(result);
+  
+  
+  
 const parsedSongList = parseSongList(rawSongList);
 const parsedSongList2 = parseSongList(rawSongList2);
 const parsedSongList3 = parseSongList(rawSongList3);
 const parsedSongList4 = parseSongList(rawSongList4);
 const parsedSongList5 = parseSongList(rawSongList5);
+const parsedSongList6 = parseSongList(rawSongList6);
+const parsedSongList7 = parseSongList(rawSongList7);
 
 console.log(parsedSongList);
 console.log(parsedSongList2);
 console.log(parsedSongList3);
 console.log(parsedSongList4);
 console.log(parsedSongList5);
+console.log(parsedSongList6);
+console.log(parsedSongList7);

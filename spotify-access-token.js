@@ -6,7 +6,7 @@ import { getSoundtrack } from './openai-script.js';
 
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
-const accessToken = 'BQDIlD8mxLF4sGKrwk9qDsyGZptnaIzaLyEydVTKAernmuMhaLPZahyBqpfQW9MVXSkbzykedY-rB5aTq0vr_N4w8A9x4Bm0Vsp8nRbczbR-nwbMe7VH';
+const accessToken = 'BQDtucSp6EoQthB-Ze-QEg0pqWcCQ427zoZRoSY4-7bpDDYc1DG4g1M__fzsIMrescJhUWHddgvJsrUzlR00cFS83B3X5divU3at9yOvtgRLpPO4fhij';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -23,7 +23,7 @@ form.addEventListener('submit', event => {
   container.style.display = 'flex';
 
   const description = document.getElementById('description').value;
-  const prompt = `Create me a 20 song soundtrack inspired by ${description}`;
+  const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. "Don't Stop Believin'" by Journey` ;
   const encodedPrompt = encodeURIComponent(prompt); // encode the prompt variable
   const apiUrl = `http://localhost:5001/?prompt=${encodedPrompt}`;
   // const url = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}` going to need to do this for all of my local hosts in cient side code.
@@ -44,37 +44,18 @@ form.addEventListener('submit', event => {
         console.log('Raw song list:', rawSongList);
 
         function parseSongList(rawSongList) {
-          const lines = rawSongList.trim().split('\n');
-          const songList = lines.map(line => {
-            const match1 = line.match(/^\d+\.\s*"(.+)"\s+-\s+(.+)$/); // matches "song" - "artist"
-            const match2 = line.match(/^\d+\.\s*(?:"(.+)"|(?:"[^"]*"))\s+-\s+(.+)$/); // matches "song" by "artist"
-            const match3 = line.match(/^\d+\.\s*(.+)\sby\s(.+)$/); // matches "song" by "artist"
-            const match4 = line.match(/^\d+\.\s*(.+)\s-\s(.+)$/); // matches "song" - "artist"
-
-            if (match1) {
-              return {
-                song: match1[1],
-                artist: match1[2],
-              };
-            } else if (match2) {
-              return {
-                song: match2[1],
-                artist: match2[2],
-              };
-            } else if (match3) {
-              return {
-                song: match3[1],
-                artist: match3[2],
-              };
-            } else if (match4) {
-              return {
-                song: match4[1],
-                artist: match4[2],
-              };
-            }
-          }).filter(Boolean);
-          return songList;
-        }
+            const lines = rawSongList.trim().split('\n');
+            const songList = lines.map(line => {
+              const match = line.match(/^(\d+)[.)]\s*(?:"(.+)"|(.+))\s*(?:by|-)?\s*(.+)/);
+              if (match) {
+                return {
+                  song: match[2] || match[3],
+                  artist: match[4].trim(),
+                };
+              }
+            }).filter(Boolean); // filter out the undefined values
+            return songList;
+          }
    
 
         const parsedSongList = parseSongList(rawSongList);

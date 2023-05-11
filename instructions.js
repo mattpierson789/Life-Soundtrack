@@ -1,11 +1,39 @@
+const instructionsButton = document.getElementById('instructions-button');
+const instructionsPopUp = document.getElementById('instructions-popup');
+const createSoundtrackButton = document.querySelector('.create-soundtrack-btn');
 
-document.addEventListener("DOMContentLoaded", function() {
-  window.setTimeout(function() {
-    document.getElementById('instructions-popup').style.display = 'block';
-  }, 2000); // delay of 2 seconds before displaying the pop-up
+let isInstructionsOpen = false; // Track if the instructions pop-up is open
 
-  const closeButton = document.querySelector('#instructions-popup button');
-  closeButton.addEventListener('click', () => {
-    document.getElementById('instructions-popup').style.display = 'none';
-  });
+instructionsButton.addEventListener('mouseenter', () => {
+  instructionsPopUp.classList.remove('hidden');
+});
+
+instructionsButton.addEventListener('mouseleave', () => {
+  if (!isInstructionsOpen) {
+    instructionsPopUp.classList.add('hidden');
+  }
+});
+
+createSoundtrackButton.addEventListener('mouseenter', () => {
+  instructionsPopUp.classList.add('hidden');
+  isInstructionsOpen = false; // Set instructions pop-up state to closed
+});
+
+createSoundtrackButton.addEventListener('mouseleave', () => {
+  instructionsPopUp.classList.add('hidden');
+  isInstructionsOpen = false; // Set instructions pop-up state to closed
+});
+
+const closeButton = document.querySelector('#instructions-popup button');
+closeButton.addEventListener('click', () => {
+  instructionsPopUp.style.display = 'none';
+  isInstructionsOpen = false; // Set instructions pop-up state to closed
+});
+
+instructionsPopUp.addEventListener('mouseenter', () => {
+  isInstructionsOpen = true; // Set instructions pop-up state to open
+});
+
+instructionsPopUp.addEventListener('mouseleave', () => {
+  isInstructionsOpen = false; // Set instructions pop-up state to closed
 });
