@@ -18,7 +18,9 @@ User Instrutions and Input
 
 Once entering the site, users will be faced with an input bar that allow them to input the inspiration for their soundtrack. 
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/45223fcbbd844c61ad07f0853e5bcdf5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+Document - 11 May 2023 - Watch Video
+
+
 
 The soundtrack will display on the page and users will be able to preview soundtracks with a short-click or select them with a long click.  Selected soundtracks are highlighted in blue.
 
