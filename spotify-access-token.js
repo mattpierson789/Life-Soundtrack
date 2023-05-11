@@ -6,7 +6,8 @@ import { getSoundtrack } from './openai-script.js';
 
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
-const accessToken = 'BQDtucSp6EoQthB-Ze-QEg0pqWcCQ427zoZRoSY4-7bpDDYc1DG4g1M__fzsIMrescJhUWHddgvJsrUzlR00cFS83B3X5divU3at9yOvtgRLpPO4fhij';
+const loadMessage = document.getElementById('loader');
+const accessToken = 'BQDy-uNsPBqXhi6Qzu3kn4XvZjPn4E7V6EiVOhqcvxyD7QznS7G60qbp5BVMMzv9iuV5iQEQi7NROKudRtj0KkPRVv-w2out6vOEs9ftCoSC7q1lp20M';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -17,11 +18,15 @@ let trackDataArray = [];
 const displayedAlbums = [];
 const trackData = [];
 
+
 form.addEventListener('submit', event => {
   event.preventDefault();
   console.log('Form submitted!');
+  console.log(loadMessage);
+    loadMessage.style.display = 'block';
   container.style.display = 'flex';
 
+  
   const description = document.getElementById('description').value;
   const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. "Don't Stop Believin'" by Journey` ;
   const encodedPrompt = encodeURIComponent(prompt); // encode the prompt variable
