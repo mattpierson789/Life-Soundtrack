@@ -7,7 +7,7 @@ import { getSoundtrack } from './openai-script.js';
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
 const loadMessage = document.getElementById('loader');
-const accessToken = 'BQDy-uNsPBqXhi6Qzu3kn4XvZjPn4E7V6EiVOhqcvxyD7QznS7G60qbp5BVMMzv9iuV5iQEQi7NROKudRtj0KkPRVv-w2out6vOEs9ftCoSC7q1lp20M';
+const accessToken = 'BQA6LCHfNtMQJTS8ip1HgGwrFm1cssuL9-9dVxyyUE7UcLIuG_1UgI82O6SyEmgAwVs8xpEBDfN7TaQ1qI1b4dA_SIVnxYhXlKU7QC2n7385WfTzlVtt';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -23,6 +23,7 @@ form.addEventListener('submit', event => {
   event.preventDefault();
   console.log('Form submitted!');
   console.log(loadMessage);
+  loadMessage.style.display = 'none';
     loadMessage.style.display = 'block';
   container.style.display = 'flex';
 
@@ -81,8 +82,6 @@ const spotifyApiRequests = parsedSongList.map(song => {
     const spotifyApiUrl = `https://api.spotify.com/v1/search?q=track:%22${encodedSong}%22%20artist:%22${encodedArtist}%22&type=track&limit=1`;
     console.log('Spotify API URL:', spotifyApiUrl);
     return fetch(spotifyApiUrl, { headers });
-
-    
 
   });
 
