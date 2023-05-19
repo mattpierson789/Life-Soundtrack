@@ -19,7 +19,7 @@ export function getSoundtrack(description) {
     if (data.choices && data.choices.length > 0) {
       const soundtrack = data.choices[0].text;
       soundtrackResponse.push(soundtrack)
-      console.log(data)
+      
       return soundtrack;
       
     } else {
@@ -28,19 +28,7 @@ export function getSoundtrack(description) {
   });
 }
 
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const description = document.getElementById('description').value;
- 
-  getSoundtrack(description)
-    .then(soundtrack => {
-      container.innerHTML = `<p>${soundtrack}</p>`;
-      console.log(container)
-      
-    })
-    .catch(error => {
-      console.error(error);
-      container.innerHTML = `<p>Oops, something went wrong!</p>`;
-    });
-});
+
+
+
 

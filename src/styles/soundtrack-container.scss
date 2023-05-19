@@ -1,16 +1,19 @@
-#soundtrack-container {
-    display: none;
+  
+    #soundtrack-container {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
     height: 800px;
     width: 1000px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 2vh;
     border-radius: 10px;
-    overflow: auto;
-    padding: 10px;
     background-color: black;
+    overflow: auto;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-top: 20px;
+    z-index: 999;
   }
   
   #soundtrack-container img {
@@ -22,6 +25,7 @@
     border-radius: 5px;
     display: block;
     transition: all 0.3s ease-in-out;
+    
   }
   
   #soundtrack-container img:hover {
@@ -49,5 +53,41 @@
     line-height: 1.2;
 
   }
+
+  #main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  #button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 1000px;
+    margin-bottom: 20px;
+  }
+  
+  .create-soundtrack-btn {
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+    position: relative;
+    left: 30px;
+    
+  }
+  
+  .create-soundtrack-btn:hover {
+    background-color: rgba(138, 138, 244, 0.672);
+  }
+
+ 
 
   

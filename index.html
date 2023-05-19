@@ -7,28 +7,118 @@
     <title>Document</title>
 
     <script type="application/javascript" src="dist/main.js" defer></script>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="dist/main.css"> 
+     <link rel="icon" type="image/x-icon" href="favicon.ico.png">
+ 
+
 
 </head>
 
 <body>
 
 
-    <h1>Life Soundtrack</h1>
+    <h1>Life Soundtrack
+      <img src="logo.ico.png" alt="Logo" width="50" height="50">
+
+      <div class="logo-container">
+        <a href="https://www.linkedin.com/in/mattpierson1/" target="_blank">
+          <img src="assets/PhotoRoom (1)/linkedin-logo.png" alt="LinkedIn" class="social-logo" />
+        </a>
+        <a href="https://github.com/mattpierson789/Life-Soundtrack" target="_blank">
+          <img src="assets/PhotoRoom (1)/github-logo.png" alt="GitHub" class="social-logo" />
+        </a>
+      </div>
+      
+
+      
+
+    </h1>
+
+  
+
     <form id="soundtrack-form">
       <label for="description"></label>
       <input type="text" id="description" name="description" placeholder="Generate a soundtrack...">
       <button type="submit">Create</button>
     </form>
 
-    <div id="soundtrack-container">
-   
+    
+
+    <div class="photo-section">
+      <div class="photo-container">
+        <img src="assets/PhotoRoom (1)/1.png" alt="Photo 1">
+        <img src="assets/PhotoRoom (1)/2.png" alt="Photo 2">
+        <img src="assets/PhotoRoom (1)/3.png" alt="Photo 3">
+        <img src="assets/PhotoRoom (1)/4.png" alt="Photo 4">
+        <img src="assets/PhotoRoom (1)/5.png" alt="Photo 5">
+      </div>
+    </div>
+
+
+    <div class="big-text">
+      <h1>Write the music of your life</h1>
+      <div id="loader" hidden>
+        <p>You are on your way!</p>
+      </div>
+    </div>
+
+    
+    
+    
+    <div id="main-container">
+      <div id="button-container">
+        <div id="instructions-container">
+          <button id="instructions-button">Instructions</button>
+          <div id="instructions-popup" class="hidden">
+    
+            <h2>Welcome to Life Soundtrack!</h2>
+            <p> Enter a prompt into our soundtrack generator in order to begin!
+      
+              <br>
+                <p> For example: </p> 
+      
+               <p> 1. "Reinvention with Upbeat Electronic Music" -  The desire to start fresh and reinvent oneself, featuring upbeat and infectious tracks from the electronic music genre that encourage taking risks and embracing change. Add tracks from various electronic music subgenres such as house, techno, trance, and EDM to showcase the diversity and variety of the genre.</p> 
+      
+               <p> 2. Leaving home for the first time and moving to a new city and country.  The soundtrack must include Time of my Life by David Cook </p>
+      
+               <p> 3. My 30 minute commute - I want to feel like I am a space bandit making a harrowing escape into deep space after a daring heist.  Have at least some instrumental music.  </p>
+      
+      
+               <p> Once you have created a soundtrack Album Art will appear - you can sample the songs with a short-click or select them with a long click!</p>
+      
+      
+               <p> If you want to iterate on your initial creation - select the song tiles (max: 5) and then press the "Create Soundtrack" button.  This will use the selected tracks as seed tracks and create a playilst based on their attributes!</p>
+      
+              
+      
+              <br>
+            </p>
+            <button id="close-button">x</button>
+           
+           
+          </div>
+          <button class="create-soundtrack-btn">Create Soundtrack</button>
+        </div>
+      </div>
+
+      
+        <div id="soundtrack-container">
+          
+        </div>
+     
+      
     </div>
     
     
     <script type="module" src="openai-script.js"></script>
     <script type="module" src="spotify-script.js"></script>
     <script type="module" src="spotify-access-token.js"></script>
+    <script type="module" src="draggable.js"></script>
+    <script type="module" src="recommendations.js"></script>
+    <script type="module" src="homepage.js"></script>
+    <script type="module" src="instructions.js"></script>
+    
+
 
     
 </body>

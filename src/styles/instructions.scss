@@ -1,0 +1,82 @@
+#instructions-popup {
+    display: none;
+    color: #1B4F72;
+    background-color: rgba(138, 138, 244, 0.972);
+    position: fixed;
+    z-index: 1001;
+    text-align: left;
+    padding: 50px;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+    top: 30%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  #instructions-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  #instructions-container:hover #instructions-popup {
+    display: block;
+  }
+  
+  #instructions-popup h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  #instructions-popup p {
+    font-size: 24px;
+  }
+  
+  #instructions-popup button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+  }
+
+  #instructions-button {
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+    margin-right: 10px;
+    position: relative;
+    left: 30px;
+  }
+  
+  #instructions-button:hover {
+    background-color: rgba(138, 138, 244, 0.672);
+  }
+
+  #instructions-button:hover + .hidden, 
+  #instructions-popup:hover {
+    display: block;
+  }
+
+  .create-soundtrack-btn:hover + #instructions-popup {
+    display: none;
+  }
+
+
+  .hidden {
+    display: none;
+}
+  
+  
+
+
