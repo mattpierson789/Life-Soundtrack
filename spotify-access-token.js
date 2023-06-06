@@ -7,7 +7,7 @@ import { getSoundtrack } from './openai-script.js';
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
 const loadMessage = document.getElementById('loader');
-const accessToken = 'BQB81HCH31wXEt-Zg6V35VMxwjRzBzeh7Au_I5MLPxnrjK8cEmVeWI_x3uStfhYQo3MhZ3_L78zSBh7Vg7VnFCJOlKkKm-bQOT2XXEzAJ1toWHmOcV7z';
+const accessToken = '"BQByDxYHlpwWlO4O2-wzwblRKphdPERZlLWDcGtLGGowcWcPKE9bg9lnzuu7YHlPRjXyYOf7Pf7rA83N82eoUTL2KRp1DZWwX6wD6VcSLqgPvACmCyE';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
