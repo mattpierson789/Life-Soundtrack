@@ -10,7 +10,8 @@ export function getSoundtrack(description) {
 
   const prompt = `Create me a soundtrack ${description}`;
   // Changed to render site url ?/promp-$(prompt) for when we are in prod
-  const apiUrl = `http://localhost:5001/?prompt=${prompt}`
+  // const apiUrl = `http://localhost:5001/?prompt=${prompt}`
+  const apiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}` 
 
   return fetch(apiUrl)
   .then(response => response.json())
