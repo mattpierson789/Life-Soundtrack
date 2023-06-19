@@ -7,7 +7,7 @@ import { getSoundtrack } from './openai-script.js';
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
 const loadMessage = document.getElementById('loader');
-const accessToken = '"BQByDxYHlpwWlO4O2-wzwblRKphdPERZlLWDcGtLGGowcWcPKE9bg9lnzuu7YHlPRjXyYOf7Pf7rA83N82eoUTL2KRp1DZWwX6wD6VcSLqgPvACmCyE';
+const accessToken = 'BQDzNfvuCLEc-U8uZd7lVgRJshK7ebnPgUwZX0nLL8sYKZv23wdSkCxucx_fI1syZR8QMDQlSPNdu08YX-TmjaUGj6gIHVMgenQwEYQCHDas7OS4jg8';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -31,8 +31,8 @@ form.addEventListener('submit', event => {
   const description = document.getElementById('description').value;
   const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. "Don't Stop Believin'" by Journey` ;
   const encodedPrompt = encodeURIComponent(prompt); // encode the prompt variable
-  const apiUrl = `http://localhost:5001/?prompt=${encodedPrompt}`;
-  // const url = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}` going to need to do this for all of my local hosts in cient side code.
+  // const apiUrl = `http://localhost:5001/?prompt=${encodedPrompt}`;
+  const apiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}` 
   console.log(prompt);
   console.log(description);
   console.log(apiUrl);
