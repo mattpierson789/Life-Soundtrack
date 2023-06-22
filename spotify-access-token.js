@@ -7,7 +7,7 @@ import { getSoundtrack } from './openai-script.js';
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
 const loadMessage = document.getElementById('loader');
-const accessToken = 'BQB-wwSD1av3Ht2_vH5LD0R2HAgGkPFpjlZTTg4rOQEw01rUQfm_IhPY52x2PS2b18GrVBJD2fvbz9k6NqNftWe_mUOHsjQ25HOf_TwQHJWzrLWVv3c';
+const accessToken = 'BQBGoz5pnkZUjqBmYg71pi4_6OYf0WXU0_1wS4Oz6v-MU70p_ObsCmNOOEJwDeiiKWD088b5KIwMcAh256KEpjIpCZ99e5_p8o245PAyiCdTTElCXbs';
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -31,6 +31,7 @@ form.addEventListener('submit', event => {
   const description = document.getElementById('description').value;
   const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. "Don't Stop Believin'" by Journey` ;
   const encodedPrompt = encodeURIComponent(prompt); // encode the prompt variable
+  debugger
   // const apiUrl = `http://localhost:5001/?prompt=${encodedPrompt}`;
   const apiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}` 
   console.log(prompt);
