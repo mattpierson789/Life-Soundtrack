@@ -31,85 +31,84 @@ form.addEventListener('submit', async event => {
   loadMessage.style.display = 'block';
   container.style.display = 'flex';
 
-  await getSpotifyAccessToken();
+  getSpotifyAccessToken().then(() => {
+    const description = document.getElementById('description').value;
+    const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. \"Don't Stop Believin'\" by Journey`;
+    const encodedPrompt = encodeURIComponent(prompt);
+    const proxyUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
 
-  const description = document.getElementById('description').value;
-  const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. \"Don't Stop Believin'\" by Journey`;
-  const encodedPrompt = encodeURIComponent(prompt);
-  const originalApiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
-  const proxyUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
+    fetch(proxyUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log('OpenAI response:', data);
 
-  fetch(proxyUrl)
-    .then(response => response.json())
-    .then(data => {
-      console.log('OpenAI response:', data);
+        const choices = data?.choices;
 
-      const choices = data?.choices;
+        if (!choices || !Array.isArray(choices) || choices.length === 0) {
+          console.error("OpenAI response missing or malformed:", data);
+          return;
+        }
 
-      if (!choices || !Array.isArray(choices) || choices.length === 0) {
-        console.error("OpenAI response missing or malformed:", data);
-        return;
-      }
+        const message = choices[0]?.message;
 
-      const message = choices[0]?.message;
+        if (!message || typeof message.content !== 'string') {
+          console.error("OpenAI message content missing or invalid:", message);
+          return;
+        }
 
-      if (!message || typeof message.content !== 'string') {
-        console.error("OpenAI message content missing or invalid:", message);
-        return;
-      }
+        const rawSongList = message.content.trim();
+        console.log('Raw song list:', rawSongList);
 
-      const rawSongList = message.content.trim();
-      console.log('Raw song list:', rawSongList);
+        const parsedSongList = parseSongList(rawSongList);
+        console.log('Parsed Song List:', parsedSongList);
 
-      const parsedSongList = parseSongList(rawSongList);
-      console.log('Parsed Song List:', parsedSongList);
+        if (!Array.isArray(parsedSongList) || parsedSongList.length === 0) {
+          console.error("Parsed song list is empty or invalid:", parsedSongList);
+          return;
+        }
 
-      if (!Array.isArray(parsedSongList) || parsedSongList.length === 0) {
-        console.error("Parsed song list is empty or invalid:", parsedSongList);
-        return;
-      }
-
-      const spotifyApiRequests = parsedSongList.map(song => {
-        const encodedSong = encodeURIComponent(song.song);
-        const encodedArtist = encodeURIComponent(song.artist);
-        const spotifyApiUrl = `https://api.spotify.com/v1/search?q=track:%22${encodedSong}%22%20artist:%22${encodedArtist}%22&type=track&limit=1`;
-        return fetch(spotifyApiUrl, { headers });
-      });
-
-      Promise.all(spotifyApiRequests)
-        .then(responses => Promise.all(responses.map(response => response.json())))
-        .then(dataArray => {
-          let html = '';
-          dataArray.forEach(data => {
-            if (data.tracks.items.length > 0) {
-              const track = data.tracks.items[0];
-              const album = track.album.name;
-              if (!displayedAlbums.includes(album)) {
-                displayedAlbums.push(album);
-                const imageUrl = track.album.images[0].url;
-                const previewUrl = track.preview_url;
-                const tileData = { album, track, imageUrl, previewUrl };
-                trackData.push(tileData);
-
-                html += `
-                  <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
-                    <img src="${imageUrl}" alt="${album} cover">
-                    <p class="caption">${track.name}</p>
-                    ${previewUrl ? `<audio controls style="display:none;"><source src="${previewUrl}" type="audio/mpeg"></audio>` : '<p class="caption">No preview available</p>'}
-                  </div>
-                `;
-              }
-            }
-          });
-
-          container.innerHTML = html;
-          setupTileEvents();
-        })
-        .catch(error => {
-          console.error('Error fetching Spotify data:', error);
+        const spotifyApiRequests = parsedSongList.map(song => {
+          const encodedSong = encodeURIComponent(song.song);
+          const encodedArtist = encodeURIComponent(song.artist);
+          const spotifyApiUrl = `https://api.spotify.com/v1/search?q=track:%22${encodedSong}%22%20artist:%22${encodedArtist}%22&type=track&limit=1`;
+          return fetch(spotifyApiUrl, { headers });
         });
-    })
-    .catch(err => console.error("Fetch error:", err));
+
+        Promise.all(spotifyApiRequests)
+          .then(responses => Promise.all(responses.map(response => response.json())))
+          .then(dataArray => {
+            let html = '';
+            dataArray.forEach(data => {
+              if (data.tracks.items.length > 0) {
+                const track = data.tracks.items[0];
+                const album = track.album.name;
+                if (!displayedAlbums.includes(album)) {
+                  displayedAlbums.push(album);
+                  const imageUrl = track.album.images[0].url;
+                  const previewUrl = track.preview_url;
+                  const tileData = { album, track, imageUrl, previewUrl };
+                  trackData.push(tileData);
+
+                  html += `
+                    <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
+                      <img src="${imageUrl}" alt="${album} cover">
+                      <p class="caption">${track.name}</p>
+                      ${previewUrl ? `<audio controls style="display:none;"><source src="${previewUrl}" type="audio/mpeg"></audio>` : '<p class="caption">No preview available</p>'}
+                    </div>
+                  `;
+                }
+              }
+            });
+
+            container.innerHTML = html;
+            setupTileEvents();
+          })
+          .catch(error => {
+            console.error('Error fetching Spotify data:', error);
+          });
+      })
+      .catch(err => console.error("Fetch error:", err));
+  });
 });
 
 function parseSongList(rawSongList) {
