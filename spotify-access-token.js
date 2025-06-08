@@ -23,7 +23,7 @@ form.addEventListener('submit', event => {
   const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. \"Don't Stop Believin'\" by Journey`;
   const encodedPrompt = encodeURIComponent(prompt);
   const originalApiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
-  const proxyUrl = `https://life-soundtrack.onrender.com/?url=${encodeURIComponent(originalApiUrl)}`;
+  const proxyUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
 
   fetch(proxyUrl)
     .then(response => response.json())
