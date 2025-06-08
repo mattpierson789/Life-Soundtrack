@@ -23,23 +23,37 @@ form.addEventListener('submit', event => {
   const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. \"Don't Stop Believin'\" by Journey`;
   const encodedPrompt = encodeURIComponent(prompt);
   const originalApiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
-  const proxyUrl = `https://YOUR-CORS-PROXY.onrender.com/?url=${encodeURIComponent(originalApiUrl)}`;
+  const proxyUrl = `https://life-soundtrack.onrender.com/?url=${encodeURIComponent(originalApiUrl)}`;
 
   fetch(proxyUrl)
     .then(response => response.json())
     .then(data => {
       console.log('OpenAI response:', data);
-      const rawSongList = data?.choices?.[0]?.message?.content;
 
-      if (!rawSongList || typeof rawSongList !== 'string') {
-        console.error("OpenAI response missing or invalid content:", data);
+      const choices = data?.choices;
+
+      if (!choices || !Array.isArray(choices) || choices.length === 0) {
+        console.error("OpenAI response missing or malformed:", data);
         return;
       }
 
+      const message = choices[0]?.message;
+
+      if (!message || typeof message.content !== 'string') {
+        console.error("OpenAI message content missing or invalid:", message);
+        return;
+      }
+
+      const rawSongList = message.content.trim();
       console.log('Raw song list:', rawSongList);
 
-      const parsedSongList = parseSongList(rawSongList.trim());
+      const parsedSongList = parseSongList(rawSongList);
       console.log('Parsed Song List:', parsedSongList);
+
+      if (!Array.isArray(parsedSongList) || parsedSongList.length === 0) {
+        console.error("Parsed song list is empty or invalid:", parsedSongList);
+        return;
+      }
 
       const spotifyApiRequests = parsedSongList.map(song => {
         const encodedSong = encodeURIComponent(song.song);
@@ -87,13 +101,14 @@ form.addEventListener('submit', event => {
 });
 
 function parseSongList(rawSongList) {
+  if (!rawSongList || typeof rawSongList !== 'string') return [];
   const lines = rawSongList.split('\n');
   return lines.map(line => {
-    const match = line.match(/^(\d+)[.)]?\s*(?:\"(.+?)\"|(.+?))\s*(?:by|-)?\s*(.+)$/i);
+    const match = line.match(/^\d+[.)]?\s*(?:\"(.+?)\"|(.+?))\s*(?:by|-)?\s*(.+)$/i);
     if (match) {
       return {
-        song: (match[2] || match[3]).trim(),
-        artist: match[4].trim()
+        song: (match[1] || match[2]).trim(),
+        artist: match[3].trim()
       };
     }
     return null;
@@ -148,7 +163,6 @@ function setupTileEvents() {
 }
 
 export { headers, getSoundtrack, trackDataArray, selectedTracks, trackData };
-  
 
 
 // attempt # 4
