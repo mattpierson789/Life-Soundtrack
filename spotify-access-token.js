@@ -3,7 +3,14 @@ import { getSoundtrack } from './openai-script.js';
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
 const loadMessage = document.getElementById('loader');
-const accessToken = 'YOUR_SPOTIFY_ACCESS_TOKEN'; // Replace with a valid access token
+let accessToken = '';
+
+fetch('https://life-soundtrack.onrender.com/spotify-token')
+  .then(res => res.json())
+  .then(data => {
+    accessToken = data.token;
+    headers['Authorization'] = `Bearer ${accessToken}`;
+  });
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
