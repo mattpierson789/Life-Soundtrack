@@ -18,7 +18,7 @@ export function getSoundtrack(description) {
   .then(data => {
     console.log(data)
     if (data.choices && data.choices.length > 0) {
-      const soundtrack = data.choices[0].text;
+      const soundtrack = data.choices[0].message.content;
       soundtrackResponse.push(soundtrack)
       
       return soundtrack;
