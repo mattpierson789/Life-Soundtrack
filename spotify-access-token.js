@@ -95,9 +95,7 @@ form.addEventListener('submit', async event => {
                   <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
                     <img src="${imageUrl}" alt="${album} cover">
                     <p class="caption">${track.name}</p>
-                    <audio controls style="display:none;">
-                      <source src="${previewUrl}" type="audio/mpeg">
-                    </audio>
+                    ${previewUrl ? `<audio controls style="display:none;"><source src="${previewUrl}" type="audio/mpeg"></audio>` : '<p class="caption">No preview available</p>'}
                   </div>
                 `;
               }
