@@ -29,17 +29,16 @@ form.addEventListener('submit', event => {
     .then(response => response.json())
     .then(data => {
       console.log('OpenAI response:', data);
-      const choices = data.choices;
-      const rawSongList = choices?.[0]?.message?.content?.trim();
+      const rawSongList = data?.choices?.[0]?.message?.content;
 
-      if (!rawSongList) {
-        console.error("OpenAI response missing content:", data);
+      if (!rawSongList || typeof rawSongList !== 'string') {
+        console.error("OpenAI response missing or invalid content:", data);
         return;
       }
 
       console.log('Raw song list:', rawSongList);
 
-      const parsedSongList = parseSongList(rawSongList);
+      const parsedSongList = parseSongList(rawSongList.trim());
       console.log('Parsed Song List:', parsedSongList);
 
       const spotifyApiRequests = parsedSongList.map(song => {
@@ -90,11 +89,11 @@ form.addEventListener('submit', event => {
 function parseSongList(rawSongList) {
   const lines = rawSongList.split('\n');
   return lines.map(line => {
-    const match = line.match(/^\d+[.)]?\s*(?:\"(.+?)\"|(.+?))\s*(?:by|-)?\s*(.+)$/i);
+    const match = line.match(/^(\d+)[.)]?\s*(?:\"(.+?)\"|(.+?))\s*(?:by|-)?\s*(.+)$/i);
     if (match) {
       return {
-        song: (match[1] || match[2]).trim(),
-        artist: match[3].trim()
+        song: (match[2] || match[3]).trim(),
+        artist: match[4].trim()
       };
     }
     return null;
