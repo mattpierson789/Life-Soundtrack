@@ -20,12 +20,16 @@ form.addEventListener('submit', event => {
   container.style.display = 'flex';
 
   const description = document.getElementById('description').value;
-  const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. \"Don't Stop Believin'\" by Journey`;
+  const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. "Don't Stop Believin'" by Journey`;
   const encodedPrompt = encodeURIComponent(prompt);
-  const originalApiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
   const proxyUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
+  
+  console.log(prompt);
+  console.log(description);
+  console.log(proxyUrl);
+  
 
-  fetch(proxyUrl)
+  fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
       console.log('OpenAI response:', data);
