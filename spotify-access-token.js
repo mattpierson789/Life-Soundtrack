@@ -29,7 +29,7 @@ form.addEventListener('submit', event => {
   console.log(proxyUrl);
   
 
-  fetch(apiUrl)
+  fetch(proxyUrl)
     .then(response => response.json())
     .then(data => {
       console.log('OpenAI response:', data);
