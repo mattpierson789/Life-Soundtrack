@@ -1,13 +1,9 @@
-
 import { getSoundtrack } from './openai-script.js';
-
-
-// attempt #3
 
 const form = document.getElementById('soundtrack-form');
 const container = document.getElementById('soundtrack-container');
 const loadMessage = document.getElementById('loader');
-const accessToken = 'BQDtmRTR9cNikuZaEjwBBJqwZVLfG5YFjHdGe-r4PCddut764mESWnN27-P2FApZdSQubNx0eM7vCE6wtaGhUu5Y5RaeUFc-m-RbFdM51jLIG4NdHOM';
+const accessToken = 'YOUR_SPOTIFY_ACCESS_TOKEN'; // Replace with a valid access token
 const headers = {
   'Authorization': `Bearer ${accessToken}`,
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -18,177 +14,139 @@ let trackDataArray = [];
 const displayedAlbums = [];
 const trackData = [];
 
-
 form.addEventListener('submit', event => {
   event.preventDefault();
-  console.log('Form submitted!');
-  console.log(loadMessage);
-  loadMessage.style.display = 'none';
-    loadMessage.style.display = 'block';
+  loadMessage.style.display = 'block';
   container.style.display = 'flex';
 
-  
   const description = document.getElementById('description').value;
-  const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. "Don't Stop Believin'" by Journey` ;
-  const encodedPrompt = encodeURIComponent(prompt); // encode the prompt variable
-  debugger
-  // const apiUrl = `http://localhost:5001/?prompt=${encodedPrompt}`;
-  const apiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}` 
-  console.log(prompt);
-  console.log(description);
-  console.log(apiUrl);
+  const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. \"Don't Stop Believin'\" by Journey`;
+  const encodedPrompt = encodeURIComponent(prompt);
+  const originalApiUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
+  const proxyUrl = `https://YOUR-CORS-PROXY.onrender.com/?url=${encodeURIComponent(originalApiUrl)}`;
 
-  fetch(apiUrl)
+  fetch(proxyUrl)
     .then(response => response.json())
     .then(data => {
       console.log('OpenAI response:', data);
-      if (data.choices && data.choices.length > 0) {
-        const choices = data.choices;
-      
+      const choices = data.choices;
+      const rawSongList = choices?.[0]?.message?.content?.trim();
 
-        // Use the parser to process the choices.text
-        let rawSongList = choices[0].text;
-        console.log('Raw song list:', rawSongList);
+      if (!rawSongList) {
+        console.error("OpenAI response missing content:", data);
+        return;
+      }
 
-        function parseSongList(rawSongList) {
-            const lines = rawSongList.trim().split('\n');
-            const songList = lines.map(line => {
-              const match = line.match(/^(\d+)[.)]\s*(?:"(.+)"|(.+))\s*(?:by|-)?\s*(.+)/);
-              if (match) {
-                return {
-                  song: match[2] || match[3],
-                  artist: match[4].trim(),
-                };
+      console.log('Raw song list:', rawSongList);
+
+      const parsedSongList = parseSongList(rawSongList);
+      console.log('Parsed Song List:', parsedSongList);
+
+      const spotifyApiRequests = parsedSongList.map(song => {
+        const encodedSong = encodeURIComponent(song.song);
+        const encodedArtist = encodeURIComponent(song.artist);
+        const spotifyApiUrl = `https://api.spotify.com/v1/search?q=track:%22${encodedSong}%22%20artist:%22${encodedArtist}%22&type=track&limit=1`;
+        return fetch(spotifyApiUrl, { headers });
+      });
+
+      Promise.all(spotifyApiRequests)
+        .then(responses => Promise.all(responses.map(response => response.json())))
+        .then(dataArray => {
+          let html = '';
+          dataArray.forEach(data => {
+            if (data.tracks.items.length > 0) {
+              const track = data.tracks.items[0];
+              const album = track.album.name;
+              if (!displayedAlbums.includes(album)) {
+                displayedAlbums.push(album);
+                const imageUrl = track.album.images[0].url;
+                const previewUrl = track.preview_url;
+                const tileData = { album, track, imageUrl, previewUrl };
+                trackData.push(tileData);
+
+                html += `
+                  <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
+                    <img src="${imageUrl}" alt="${album} cover">
+                    <p class="caption">${track.name}</p>
+                    <audio controls style="display:none;">
+                      <source src="${previewUrl}" type="audio/mpeg">
+                    </audio>
+                  </div>
+                `;
               }
-            }).filter(Boolean); // filter out the undefined values
-            return songList;
-          }
-   
-
-        const parsedSongList = parseSongList(rawSongList);
-        console.log('Parsed Song List:', parsedSongList);
-
-        let playList = [];
-
-        for (let i = 0; i < parsedSongList.length; i++) {
-          playList.push({ song: parsedSongList[i].song, artist: parsedSongList[i].artist });
-        }
-
-        console.log('Playlist:', playList);
-
-        // Map each song title and artist name to a search query for the Spotify API
-const spotifyApiRequests = parsedSongList.map(song => {
-    const encodedSong = encodeURIComponent(song.song);
-    const encodedArtist = encodeURIComponent(song.artist);
-    const spotifyApiUrl = `https://api.spotify.com/v1/search?q=track:%22${encodedSong}%22%20artist:%22${encodedArtist}%22&type=track&limit=1`;
-    console.log('Spotify API URL:', spotifyApiUrl);
-    return fetch(spotifyApiUrl, { headers });
-
-  });
-
-
-  Promise.all(spotifyApiRequests)
-    .then(responses => Promise.all(responses.map(response => response.json())))
-    .then(dataArray => {
-      let html = '';
-      dataArray.forEach(data => {
-        if (data.tracks.items.length > 0) {
-          const track = data.tracks.items[0];
-          const album = track.album.name;
-          if (!displayedAlbums.includes(album)) {
-            displayedAlbums.push(album);
-            const imageUrl = track.album.images[0].url;
-            const previewUrl = track.preview_url;
-            const tileData = { album, track, imageUrl, previewUrl };
-            trackData.push(tileData);
-  
-            // Create HTML to display metadata and preview audio
-            html += `
-            <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
-                <img src="${imageUrl}" alt="${album} cover">
-                <p class="caption">${track.name}</p>
-                <audio controls style="display:none;">
-                <source src="${previewUrl}" type="audio/mpeg">
-                </audio>
-            </div>
-            `;
-            console.log(`Got soundtrack: ${track.name}`);
-          }
-        }
-      });
-
-  
-        container.innerHTML = html;
-
-  
-      // Add event listeners to each tile
-      const tiles = container.querySelectorAll('.tile');
-  
-      tiles.forEach((tile, index) => {
-        let selected = false;
-        let isLongClick = false;
-        const audio = tile.querySelector('audio');
-        const track = trackData[index].track;
-  
-        const LONG_CLICK_DELAY = 250; // in ms
-        let longClickTimeout;
-  
-        function handleLongClick() {
-          isLongClick = true;
-          if (selected) {
-            // Deselect the tile
-            selected = false;
-            tile.classList.remove('selected');
-            const index = selectedTracks.indexOf(track);
-            if (index > -1) {
-              selectedTracks.splice(index, 1);
             }
-          } else {
-            // Select the tile
-            selected = true;
-            tile.classList.add('selected');
-            selectedTracks.push(track);
-          }
-        }
-  
-        tile.addEventListener('mousedown', () => {
-          longClickTimeout = setTimeout(handleLongClick, LONG_CLICK_DELAY);
-        });
+          });
 
-        if (!audio) {
-            // If there is no audio element, do not add event listeners
-            return;
-          }
-  
-        tile.addEventListener('mouseup', () => {
-          if (!isLongClick) {
-            if (audio.paused) {
-              audio.play();
-            } else {
-              audio.pause();
-            }
-          }
-          clearTimeout(longClickTimeout);
-          isLongClick = false;
+          container.innerHTML = html;
+          setupTileEvents();
+        })
+        .catch(error => {
+          console.error('Error fetching Spotify data:', error);
         });
-  
-        audio.addEventListener('ended', () => {
-          selected = false;
-          tile.classList.remove('selected');
-          const index = selectedTracks.indexOf(track);
-          if (index > -1) {
-            selectedTracks.splice(index, 1);
-          }
-        });
-      });
     })
-    .catch(error => {
-      console.error('Error:', error);
-    
-    });
+    .catch(err => console.error("Fetch error:", err));
+});
+
+function parseSongList(rawSongList) {
+  const lines = rawSongList.split('\n');
+  return lines.map(line => {
+    const match = line.match(/^\d+[.)]?\s*(?:\"(.+?)\"|(.+?))\s*(?:by|-)?\s*(.+)$/i);
+    if (match) {
+      return {
+        song: (match[1] || match[2]).trim(),
+        artist: match[3].trim()
+      };
+    }
+    return null;
+  }).filter(Boolean);
 }
-});
-});
+
+function setupTileEvents() {
+  const tiles = container.querySelectorAll('.tile');
+  tiles.forEach((tile, index) => {
+    let selected = false;
+    let isLongClick = false;
+    const audio = tile.querySelector('audio');
+    const track = trackData[index].track;
+
+    const LONG_CLICK_DELAY = 250;
+    let longClickTimeout;
+
+    function handleLongClick() {
+      isLongClick = true;
+      selected = !selected;
+      tile.classList.toggle('selected', selected);
+
+      if (selected) {
+        selectedTracks.push(track);
+      } else {
+        const idx = selectedTracks.indexOf(track);
+        if (idx > -1) selectedTracks.splice(idx, 1);
+      }
+    }
+
+    tile.addEventListener('mousedown', () => {
+      longClickTimeout = setTimeout(handleLongClick, LONG_CLICK_DELAY);
+    });
+
+    tile.addEventListener('mouseup', () => {
+      if (!isLongClick && audio) {
+        audio.paused ? audio.play() : audio.pause();
+      }
+      clearTimeout(longClickTimeout);
+      isLongClick = false;
+    });
+
+    if (audio) {
+      audio.addEventListener('ended', () => {
+        selected = false;
+        tile.classList.remove('selected');
+        const idx = selectedTracks.indexOf(track);
+        if (idx > -1) selectedTracks.splice(idx, 1);
+      });
+    }
+  });
+}
 
 export { headers, getSoundtrack, trackDataArray, selectedTracks, trackData };
   
