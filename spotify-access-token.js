@@ -89,8 +89,6 @@ form.addEventListener('submit', async event => {
 
                   html += `
                   <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
-                    <img src="${imageUrl}" alt="${album} cover">
-                    <p class="caption">${track.name}</p>
                     <iframe 
                       style="border-radius:12px" 
                       src="https://open.spotify.com/embed/track/${track.id}?utm_source=generator"
@@ -102,6 +100,7 @@ form.addEventListener('submit', async event => {
                     </iframe>
                   </div>
                 `;
+                
                 
                 }
               }
