@@ -15,13 +15,12 @@ body {
 
 #soundtrack-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 40px;
   padding: 40px;
   background-color: black;
   width: 1000px;
-  height: 800px;;
-  max-width: 1200px;
+  height: 800px;
   margin: 0 auto;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
@@ -29,17 +28,17 @@ body {
 }
 
 .tile {
+  display: block;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .tile iframe {
+  display: block;
   width: 100%;
-  height: 152px;
+  height: 80px;
   border: none;
   border-radius: 12px;
 }
