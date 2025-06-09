@@ -1,93 +1,122 @@
-  
-    #soundtrack-container {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    height: 800px;
-    width: 1000px;
-    margin: 0 auto;
-    margin-top: 2vh;
-    border-radius: 10px;
-    background-color: black;
-    overflow: auto;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    margin-top: 20px;
-    z-index: 999;
-  }
-  
-  #soundtrack-container img {
-    width: 160px;
-    height: 160px;
-    margin: 0px;
-    margin-right: 10px;
-    object-fit: cover;
-    border-radius: 5px;
-    display: block;
-    transition: all 0.3s ease-in-out;
-    
-  }
-  
-  #soundtrack-container img:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
+/* Main soundtrack container */
+#soundtrack-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 30px;
+  background-color: black;
+  border-radius: 10px;
+  overflow-y: auto;
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+}
 
-  .soundtrack-item {
-    display: flex;
+/* Individual tile */
+.tile {
+  width: 300px;
+  height: 420px;
+  background-color: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+  padding: 10px;
+}
+
+.tile:hover {
+  transform: translateY(-5px);
+}
+
+/* Embed styling inside the tile */
+.tile iframe {
+  width: 100%;
+  height: 80px;
+  border: none;
+  border-radius: 12px;
+  margin-top: auto;
+}
+
+/* Selected tile effect */
+.selected {
+  border: 2px solid #1db954;
+  box-shadow: 0 0 10px #1db954;
+}
+
+/* Caption under image (if used) */
+.caption {
+  margin-top: 10px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+}
+
+/* Soundtrack image styles (optional) */
+#soundtrack-container img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+#soundtrack-container img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Main container wrapping everything */
+#main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+/* Button container */
+#button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Create Soundtrack button */
+.create-soundtrack-btn {
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #1db954;
+  z-index: 1000;
+  position: relative;
+  left: 30px;
+}
+
+.create-soundtrack-btn:hover {
+  background-color: #1ed760;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  #soundtrack-container {
     flex-direction: column;
     align-items: center;
-    margin: 10px;
-  }
-  
-  .soundtrack-item img {
-    width: 200px;
-    height: 200px;
-  }
-  
-  #soundtrack-container p {
-    text-align: center;
-    width: 200px;
-    margin: 0 10px;
-    font-size: 16px;
-    line-height: 1.2;
-
   }
 
-  #main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 1000px;
-    margin: 0 auto;
-    margin-top: 20px;
+  .tile {
+    width: 90%;
+    height: auto;
   }
-  
-  #button-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 1000px;
-    margin-bottom: 20px;
-  }
-  
-  .create-soundtrack-btn {
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    z-index: 1000;
-    position: relative;
-    left: 30px;
-    
-  }
-  
-  .create-soundtrack-btn:hover {
-    background-color: rgba(138, 138, 244, 0.672);
-  }
-
- 
-
-  
+}

@@ -93,7 +93,7 @@ form.addEventListener('submit', async event => {
                       style="border-radius:12px" 
                       src="https://open.spotify.com/embed/track/${track.id}?utm_source=generator"
                       width="300" 
-                      height="80" 
+                      height="380" 
                       frameborder="0" 
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                       loading="lazy">
