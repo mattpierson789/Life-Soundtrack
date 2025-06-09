@@ -37,7 +37,7 @@ body {
   justify-content: center;
   margin: 60px;
   width: 400px;
-  height: 2000px;
+  height: 200px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   transform-style: preserve-3d;
   transition: transform 0.5s;
