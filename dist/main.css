@@ -20,8 +20,7 @@ body {
   padding: 40px;
   background-color: black;
   width: 100%;
-  max-width: 1000px;
-  height: auto;
+  max-width: 1200px;
   margin: 0 auto;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
@@ -30,14 +29,11 @@ body {
 
 .tile {
   width: 100%;
-  height: auto;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
 }
 
 .tile iframe {
@@ -46,6 +42,7 @@ body {
   border: none;
   border-radius: 12px;
 }
+
 
 
 #soundtrack-container img {
