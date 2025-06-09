@@ -13,35 +13,42 @@ body {
   background: linear-gradient(90deg, rgba(5, 177, 177, 0.691), rgba(255, 206, 156, 0.75), rgba(218, 165, 32, 0.75));
 }
 
+/* 1) Outer wrapper: fixed cap at 1000px, centered on page */
 #soundtrack-container {
   display: grid;
-  /* make each column exactly 300px wide, auto-wrap as many as fit */
-  grid-template-columns: repeat(auto-fit, 300px);
-  gap: 20px;
-  width: 1000px;
+  /* exactly 300px columns, wrap when they don’t fit */
+  grid-template-columns: repeat(auto-fill, 300px);
+  column-gap: 20px;
+  row-gap: 20px;
+
+  width: 100%;           /* fill up to… */
+  max-width: 1000px;     /* …1000px */
   height: 800px;
-  margin: 40px auto;
+  margin: 40px auto;     /* auto-center horizontally */
   padding: 20px;
-  background: black;
-  overflow-y: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.7);
   box-sizing: border-box;
+  background: black;
+  border-radius: 12px;
+  overflow-y: auto;
+  box-shadow: 0 0 30px rgba(0,0,0,0.7);
 }
 
+/* 2) Each card is exactly 300×380 (Spotify’s full embed size) */
 .tile {
-  width: 300px;     /* exactly the same as your column width */
-  height: 380px;    /* full Spotify embed height */
+  width: 300px;
+  height: 380px;
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  background: #111;
 }
 
+/* 3) The embed fills that card */
 .tile iframe {
+  display: block;
   width: 100%;
   height: 100%;
   border: none;
-  display: block;
 }
 
 
