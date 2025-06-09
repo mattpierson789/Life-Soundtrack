@@ -1,3 +1,4 @@
+// spotify-access-token.js
 import { getSoundtrack } from './openai-script.js';
 
 const form = document.getElementById('soundtrack-form');
@@ -33,7 +34,7 @@ form.addEventListener('submit', async event => {
 
   getSpotifyAccessToken().then(() => {
     const description = document.getElementById('description').value;
-    const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. \"Don't Stop Believin'\" by Journey`;
+    const prompt = `Create me a 20 song soundtrack inspired by ${description} always return as a list of song by artist like this 1. "Don't Stop Believin'" by Journey`;
     const encodedPrompt = encodeURIComponent(prompt);
     const proxyUrl = `https://life-soundtrack.onrender.com/?prompt=${encodedPrompt}`;
 
@@ -43,14 +44,12 @@ form.addEventListener('submit', async event => {
         console.log('OpenAI response:', data);
 
         const choices = data?.choices;
-
         if (!choices || !Array.isArray(choices) || choices.length === 0) {
           console.error("OpenAI response missing or malformed:", data);
           return;
         }
 
         const message = choices[0]?.message;
-
         if (!message || typeof message.content !== 'string') {
           console.error("OpenAI message content missing or invalid:", message);
           return;
@@ -85,15 +84,23 @@ form.addEventListener('submit', async event => {
                 if (!displayedAlbums.includes(album)) {
                   displayedAlbums.push(album);
                   const imageUrl = track.album.images[0].url;
-                  const previewUrl = track.preview_url;
-                  const tileData = { album, track, imageUrl, previewUrl };
+                  const tileData = { album, track, imageUrl };
                   trackData.push(tileData);
 
                   html += `
                     <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
                       <img src="${imageUrl}" alt="${album} cover">
                       <p class="caption">${track.name}</p>
-                      ${previewUrl ? `<audio controls style="display:none;"><source src="${previewUrl}" type="audio/mpeg"></audio>` : '<p class="caption">No preview available</p>'}
+                      <iframe 
+                        style="border-radius:12px" 
+                        src="https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0" 
+                        width="100%" 
+                        height="80" 
+                        frameBorder="0" 
+                        allowfullscreen 
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                        loading="lazy">
+                      </iframe>
                     </div>
                   `;
                 }
@@ -131,7 +138,6 @@ function setupTileEvents() {
   tiles.forEach((tile, index) => {
     let selected = false;
     let isLongClick = false;
-    const audio = tile.querySelector('audio');
     const track = trackData[index].track;
 
     const LONG_CLICK_DELAY = 250;
@@ -155,21 +161,9 @@ function setupTileEvents() {
     });
 
     tile.addEventListener('mouseup', () => {
-      if (!isLongClick && audio) {
-        audio.paused ? audio.play() : audio.pause();
-      }
       clearTimeout(longClickTimeout);
       isLongClick = false;
     });
-
-    if (audio) {
-      audio.addEventListener('ended', () => {
-        selected = false;
-        tile.classList.remove('selected');
-        const idx = selectedTracks.indexOf(track);
-        if (idx > -1) selectedTracks.splice(idx, 1);
-      });
-    }
   });
 }
 
