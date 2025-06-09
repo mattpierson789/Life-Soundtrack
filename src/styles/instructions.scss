@@ -1,81 +1,77 @@
-#instructions-popup {
-    display: none;
-    color: #1B4F72;
-    background-color: rgba(138, 138, 244, 0.972);
-    position: fixed;
-    z-index: 1001;
-    text-align: left;
-    padding: 50px;
-    overflow: auto;
-    border-radius: 10px;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
-    top: 30%;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    font-family: 'Roboto', sans-serif;
-  }
-
-  #instructions-container {
-    position: relative;
-    display: inline-block;
-  }
-
-  #instructions-container:hover #instructions-popup {
-    display: block;
-  }
-  
-  #instructions-popup h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  #instructions-popup p {
-    font-size: 24px;
-  }
-  
-  #instructions-popup button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #aaa;
-    cursor: pointer;
-  }
-
-  #instructions-button {
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    z-index: 1000;
-    margin-right: 10px;
-    position: relative;
-    left: 30px;
-  }
-  
-  #instructions-button:hover {
-    background-color: rgba(138, 138, 244, 0.672);
-  }
-
-  #instructions-button:hover + .hidden, 
-  #instructions-popup:hover {
-    display: block;
-  }
-
-  .create-soundtrack-btn:hover + #instructions-popup {
-    display: none;
-  }
-
-
-  .hidden {
-    display: none;
+/* ==== Instructions Button ==== */
+#instructions-button.btn {
+  background: #1b4f72;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  position: relative;
+  z-index: 100;
 }
+#instructions-button.btn:hover {
+  background: #163f5f;
+}
+
+/* ==== Overlay ==== */
+#instructions-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+#instructions-overlay.hidden {
+  display: none;
+}
+
+/* ==== Modal ==== */
+#instructions-popup {
+  background: #fff;
+  color: #333;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  position: relative;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+#instructions-popup button#close-instructions {
+  position: absolute;
+  top: 0.5em; right: 0.5em;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+#instructions-popup button#close-instructions:hover {
+  color: #000;
+}
+#instructions-popup h2 {
+  margin: 1.5em 1em 0.5em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.75rem;
+  color: #1b4f72;
+}
+#instructions-popup .instructions-content {
+  padding: 0 1em 1.5em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+#instructions-popup .instructions-content ul {
+  margin: 0.5em 0 1em 1.25em;
+}
+
   
   
 

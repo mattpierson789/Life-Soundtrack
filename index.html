@@ -50,19 +50,32 @@
 
   <div id="main-container">
     <div id="button-container">
-      <div id="instructions-container">
-        <button id="instructions-button">Instructions</button>
-        <div id="instructions-popup" class="hidden">
-          <h2>Welcome to Life Soundtrack!</h2>
-          <p>Enter a prompt into our soundtrack generator in order to begin!</p>
-          <p>For example:</p>
-          <p>1. "Reinvention with Upbeat Electronic Music" - The desire to start fresh and reinvent oneself, featuring upbeat and infectious tracks from the electronic music genre that encourage taking risks and embracing change.</p>
-          <p>2. Leaving home for the first time and moving to a new city and country. The soundtrack must include "Time of my Life" by David Cook.</p>
-          <p>3. My 30 minute commute - I want to feel like I am a space bandit making a harrowing escape into deep space after a daring heist.</p>
-          <p>Once you’ve created a soundtrack, album art will appear — you can sample the songs with a short-click or select them with a long click!</p>
-          <p>If you want to iterate on your creation, select song tiles (max: 5), then press the "Create Soundtrack" button. It’ll use the selected songs as seeds to create a new playlist!</p>
-          <button id="close-button">x</button>
-        </div>
+      <button id="instructions-button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        class="btn">
+  Instructions
+</button>
+
+<div id="instructions-overlay" class="hidden" tabindex="-1">
+  <div id="instructions-popup" role="dialog" 
+       aria-modal="true" 
+       aria-labelledby="instructions-title">
+    <button id="close-instructions" aria-label="Close">&times;</button>
+    <h2 id="instructions-title">Welcome to Life Soundtrack</h2>
+    <div class="instructions-content">
+      <p>Enter a prompt into our soundtrack generator to begin.</p>
+      <ul>
+        <li><strong>Example 1</strong>: “Reinvention with Upbeat Electronic Music” – Fresh, energetic, risk-taking vibes.</li>
+        <li><strong>Example 2</strong>: “Leaving home for the first time” – Must include “Time of my Life” by David Cook.</li>
+        <li><strong>Example 3</strong>: “30-min commute as a space bandit escape” – some instrumental allowed.</li>
+      </ul>
+      <p>After creating a soundtrack, album art cards will appear.  
+         <br>If you want to iterate, long-click (or Shift-click) up to 5 cards, then press “Create Soundtrack” again.</p>
+    </div>
+  </div>
+</div>
+
       </div>
 
       <!-- Hidden Create Soundtrack Button -->
