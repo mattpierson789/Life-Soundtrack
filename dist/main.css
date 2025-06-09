@@ -13,49 +13,44 @@ body {
   background: linear-gradient(90deg, rgba(5, 177, 177, 0.691), rgba(255, 206, 156, 0.75), rgba(218, 165, 32, 0.75));
 }
 
+/* ====== SOUNDTRACK CONTAINER ====== */
 #soundtrack-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;              /* space between cards */
+  width: 1000px;          /* fixed preview size */
+  height: 800px;          /* fixed preview size */
+  margin: 40px auto;      /* center on page */
+  padding: 10px;          /* inner gutter */
   background-color: black;
-  border-radius: 10px;
-  overflow-y: auto;
-  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.7);
+  overflow-y: auto;       /* scroll when full */
+  box-sizing: border-box;
 }
 
-/* Individual tile */
+/* ====== TILE WRAPPER ====== */
 .tile {
-  width: 300px;
-  height: 420px;
-  background-color: #111;
+  width: 100%;            /* fill its grid cell */
   border-radius: 12px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease;
-  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  background-color: #111; /* optional card background */
 }
+
+/* ====== SPOTIFY EMBED ====== */
+.tile iframe {
+  display: block;         /* removes inline quirks */
+  width: 100%;
+  height: 380px;          /* full Spotify “card” height */
+  border: none;
+}
+
 
 .tile:hover {
   transform: translateY(-5px);
 }
 
-/* Embed styling inside the tile */
-.tile iframe {
-  width: 100%;
-  height: 80px;
-  border: none;
-  border-radius: 12px;
-  margin-top: auto;
-}
 
 
 
