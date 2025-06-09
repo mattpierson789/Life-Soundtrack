@@ -11,7 +11,7 @@ async function getSpotifyAccessToken() {
   try {
     const response = await fetch('https://life-soundtrack.onrender.com/spotify-token');
     const data = await response.json();
-    accessToken = data.access_token;
+    accessToken = data.token;
     headers = {
       'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/x-www-form-urlencoded'
