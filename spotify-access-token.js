@@ -88,21 +88,21 @@ form.addEventListener('submit', async event => {
                   trackData.push(tileData);
 
                   html += `
-                    <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
-                      <img src="${imageUrl}" alt="${album} cover">
-                      <p class="caption">${track.name}</p>
-                      <iframe 
-                        style="border-radius:12px" 
-                        src="https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0" 
-                        width="100%" 
-                        height="80" 
-                        frameBorder="0" 
-                        allowfullscreen 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                        loading="lazy">
-                      </iframe>
-                    </div>
-                  `;
+                  <div class="tile" draggable="true" data-index="${dataArray.indexOf(data)}">
+                    <img src="${imageUrl}" alt="${album} cover">
+                    <p class="caption">${track.name}</p>
+                    <iframe 
+                      style="border-radius:12px" 
+                      src="https://open.spotify.com/embed/track/${track.id}?utm_source=generator"
+                      width="300" 
+                      height="80" 
+                      frameborder="0" 
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                      loading="lazy">
+                    </iframe>
+                  </div>
+                `;
+                
                 }
               }
             });
