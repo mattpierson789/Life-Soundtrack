@@ -33,7 +33,8 @@ body {
 /* each tile gets exactly (100% - 2 gutters) / 3 of the row */
 .tile {
   flex: 0 0 calc((100% - 2 * 20px) / 3);
-  height: 380px;                  /* match Spotify embed height */
+  height: 380px;    
+  width: 300px              /* match Spotify embed height */
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
